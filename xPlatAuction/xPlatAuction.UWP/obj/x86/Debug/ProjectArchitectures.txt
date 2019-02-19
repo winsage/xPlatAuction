@@ -1,0 +1,1 @@
+C:\Users\ajain\Downloads\building-cross-platform-mobile-apps-csharp-xamarin-azure-update\07\demos\xPlatAuction\xPlatAuction\xPlatAuction.UWP\xPlatAuction.UWP.csproj;x86

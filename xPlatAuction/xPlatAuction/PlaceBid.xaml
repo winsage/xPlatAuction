@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   x:Class="xPlatAuction.PlaceBid">
+  <TabbedPage.Children>
+    <ContentPage Title="TableView">
+      <ContentPage.Content>
+      <TableView Intent="Form">
+        <TableView.Root>
+          <TableRoot Title="Place Bid">
+            <TableSection Title="Item Details">
+              <TextCell Text="{Binding Item.Name}" Detail="{Binding Item.Description}"></TextCell>
+              <TextCell Text="Current Bid:" Detail="{Binding Item.CurrentBid, StringFormat='{0:c}'}"></TextCell>
+            </TableSection>
+            <TableSection Title="Bid">
+              <EntryCell Keyboard="Numeric" Label="Your bid:" Text="{Binding BidAmount, Mode=TwoWay}"></EntryCell> 
+            </TableSection>
+          </TableRoot>
+        </TableView.Root>
+      </TableView>
+      </ContentPage.Content>
+      
+    </ContentPage>
+
+    <ContentPage Title="GridView">
+      <Grid RowSpacing="10">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="10"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="10"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.Children>
+          <Label Text="Place Bid" Font="Bold,Large"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+          
+          <Label Text="{Binding Item.Name}" TextColor="Color.Accent" Font="Bold,Medium" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+          <Label Text="{Binding Item.Description}" Font="Italic,Medium" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
+          
+          <Label Text="Current Bid:" Grid.Row="5" Grid.Column="0"/>
+          <Label Font="Bold,Medium" Text="{Binding Item.CurrentBid, StringFormat='{0:c}'}" Grid.Row="5" Grid.Column="1"/>
+
+          <Label  Font="Bold,Large" Text="Your Bid:" Grid.Row="6" Grid.Column="0"/>
+          <StackLayout Orientation="Horizontal" Grid.Row="6" Grid.Column="1" VerticalOptions="Center">
+            <Stepper Minimum="{Binding Item.CurrentBid, Mode=OneWay}" Increment="5" Maximum="500" Value="{Binding BidAmount, Mode=TwoWay}"/>
+            <Label Text="{Binding BidAmount, StringFormat='{0:c}'}" Font="Medium"/>
+          </StackLayout>
+          
+        </Grid.Children>
+      </Grid>
+    </ContentPage>
+    
+  </TabbedPage.Children>
+  <TabbedPage.ToolbarItems>
+    <ToolbarItem Name="Bid" Priority="1" Order="Primary" Command="{Binding PlaceBidCommand}" >
+      <ToolbarItem.Icon>
+        <OnPlatform x:TypeArguments="FileImageSource">
+          <On Platform="Windows,WinPhone" Value="/Toolkit.Content/ApplicationBar.Add.png" />
+        </OnPlatform>
+      </ToolbarItem.Icon>
+    </ToolbarItem>
+  </TabbedPage.ToolbarItems>
+  
+</TabbedPage>

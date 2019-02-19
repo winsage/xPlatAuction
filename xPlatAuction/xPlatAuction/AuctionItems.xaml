@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:beh="clr-namespace:xPlatAuction.Behaviors;assembly=xPlatAuction"
+                       x:Class="xPlatAuction.AuctionItems">
+    <ContentPage.Resources>
+     <ResourceDictionary>
+            <beh:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+        </ResourceDictionary>  
+    </ContentPage.Resources>
+  <StackLayout Orientation="Vertical">
+        <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></ActivityIndicator>
+    <ListView ItemsSource="{Binding Items}">
+       <ListView.RowHeight>
+            <OnPlatform x:TypeArguments="x:Int32">
+                <On Platform="iOS" Value="50" />
+                <On Platform="Android,WinPhone,Windows" Value="40" />
+            </OnPlatform>
+        </ListView.RowHeight>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
+              <StackLayout Padding="10,5,10,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand" >
+                      <Label Text="{Binding Name}">
+                          <Label.FontSize>
+                            <OnIdiom x:TypeArguments="x:Double" Phone="11" Tablet="15" />
+                         </Label.FontSize>
+                      </Label>
+                      <Label Text="{Binding Description}">
+                         <Label.LineBreakMode>
+                              <OnIdiom x:TypeArguments="LineBreakMode" Phone="TailTruncation" Tablet="MiddleTruncation" />
+                       </Label.LineBreakMode>
+                       <Label.FontSize>
+                            <OnIdiom x:TypeArguments="x:Double" Phone="8" Tablet="12" />
+                       </Label.FontSize>
+                      </Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="End" >
+                      <Label Text="{Binding StartingBid, StringFormat='Start: {0:c}'}">
+                        <Label.FontSize>
+                          <OnIdiom x:TypeArguments="x:Double" Phone="11" Tablet="15" />
+                         </Label.FontSize>
+                      </Label>
+                      <Label Text="{Binding CurrentBid, StringFormat='Current: {0:c}'}">
+                        <Label.FontSize>
+                          <OnIdiom x:TypeArguments="x:Double" Phone="8" Tablet="12" />
+                          </Label.FontSize>
+                      </Label>
+                    </StackLayout>
+              </StackLayout>
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+      <ListView.Behaviors>
+            <beh:ListViewSelectedItemBehavior Command="{Binding PlaceBid}" Converter="{StaticResource SelectedItemConverter}" />
+        </ListView.Behaviors> 
+    </ListView>
+  </StackLayout>
+</ContentPage>
